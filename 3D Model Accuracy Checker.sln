@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3D Model Accuracy Checker", "3D Model Accuracy Checker.csproj", "{90401D6E-C22C-4E19-B816-6559BC7FFB4B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{548663CC-B642-471F-88AB-5BB00395C86E} = {548663CC-B642-471F-88AB-5BB00395C86E}
+		{C79DD75A-3FAC-4407-AEA9-80562546D81F} = {C79DD75A-3FAC-4407-AEA9-80562546D81F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManagement", "FilesManagement\FilesManagement.csproj", "{C79DD75A-3FAC-4407-AEA9-80562546D81F}"
 EndProject

@@ -9,4 +9,30 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="FilesManagement\**" />
+    <Compile Remove="ShapeFile_management\**" />
+    <EmbeddedResource Remove="FilesManagement\**" />
+    <EmbeddedResource Remove="ShapeFile_management\**" />
+    <None Remove="FilesManagement\**" />
+    <None Remove="ShapeFile_management\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="TerraExplorerX">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>b87695b0-65ad-11d5-85c1-0001023952c1</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="FilesManagement\FilesManagement.csproj" />
+    <ProjectReference Include="ShapeFile_management\ShapeFile_management2.csproj" />
+  </ItemGroup>
+
 </Project>

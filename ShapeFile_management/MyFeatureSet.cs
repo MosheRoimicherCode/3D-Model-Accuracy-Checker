@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using DotSpatial.Data;
-using DotSpatial.Topology;
+﻿using DotSpatial.Data;
 
-public class MyFeatureSet : FeatureSet
+public class MyFeatureSet : DotSpatial.Data.FeatureSet
 {
     public MyFeatureSet(DotSpatial.Data.FeatureType featureType) : base(featureType){}
     public MyFeatureSet(){}
