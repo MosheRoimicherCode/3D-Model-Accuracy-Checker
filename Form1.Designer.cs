@@ -31,6 +31,7 @@
             Table_pabel = new Panel();
             points_dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
+            Delete = new DataGridViewTextBoxColumn();
             OriginalX = new DataGridViewTextBoxColumn();
             OriginalY = new DataGridViewTextBoxColumn();
             OriginalZ = new DataGridViewTextBoxColumn();
@@ -40,10 +41,13 @@
             OffsetX = new DataGridViewTextBoxColumn();
             OffsetY = new DataGridViewTextBoxColumn();
             OffsetZ = new DataGridViewTextBoxColumn();
+            OffMinusAverage_X = new DataGridViewTextBoxColumn();
+            OffMinusAverage_Y = new DataGridViewTextBoxColumn();
+            OffMinusAverage_Z = new DataGridViewTextBoxColumn();
             LoadFile_btn = new Button();
             Calc_btn = new Button();
             Export_btn = new Button();
-            textBox1 = new TextBox();
+            resultTxtBox = new TextBox();
             Result_lbl = new Label();
             shapefile_btn = new Button();
             Table_pabel.SuspendLayout();
@@ -61,8 +65,7 @@
             // points_dataGridView
             // 
             points_dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            points_dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, OriginalX, OriginalY, OriginalZ, MeasureX, MeasureY, MeasureZ, OffsetX, OffsetY, OffsetZ });
-            points_dataGridView.Dock = DockStyle.Fill;
+            points_dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, Delete, OriginalX, OriginalY, OriginalZ, MeasureX, MeasureY, MeasureZ, OffsetX, OffsetY, OffsetZ, OffMinusAverage_X, OffMinusAverage_Y, OffMinusAverage_Z });
             points_dataGridView.Location = new Point(0, 0);
             points_dataGridView.Name = "points_dataGridView";
             points_dataGridView.Size = new Size(779, 384);
@@ -74,41 +77,52 @@
             ID.HeaderText = "ID";
             ID.Name = "ID";
             // 
+            // Delete
+            // 
+            Delete.HeaderText = "Delete Point";
+            Delete.Name = "Delete";
+            // 
             // OriginalX
             // 
             OriginalX.HeaderText = "OriginalX";
             OriginalX.Name = "OriginalX";
             OriginalX.ReadOnly = true;
+            OriginalX.Visible = false;
             // 
             // OriginalY
             // 
             OriginalY.HeaderText = "OriginalY";
             OriginalY.Name = "OriginalY";
             OriginalY.ReadOnly = true;
+            OriginalY.Visible = false;
             // 
             // OriginalZ
             // 
             OriginalZ.HeaderText = "OriginalZ";
             OriginalZ.Name = "OriginalZ";
             OriginalZ.ReadOnly = true;
+            OriginalZ.Visible = false;
             // 
             // MeasureX
             // 
             MeasureX.HeaderText = "MeasureX";
             MeasureX.Name = "MeasureX";
             MeasureX.ReadOnly = true;
+            MeasureX.Visible = false;
             // 
             // MeasureY
             // 
             MeasureY.HeaderText = "MeasureY";
             MeasureY.Name = "MeasureY";
             MeasureY.ReadOnly = true;
+            MeasureY.Visible = false;
             // 
             // MeasureZ
             // 
             MeasureZ.HeaderText = "MeasureZ";
             MeasureZ.Name = "MeasureZ";
             MeasureZ.ReadOnly = true;
+            MeasureZ.Visible = false;
             // 
             // OffsetX
             // 
@@ -125,6 +139,24 @@
             OffsetZ.HeaderText = "OffsetZ";
             OffsetZ.Name = "OffsetZ";
             // 
+            // OffMinusAverage_X
+            // 
+            OffMinusAverage_X.HeaderText = "OffMinusAverage_X";
+            OffMinusAverage_X.Name = "OffMinusAverage_X";
+            OffMinusAverage_X.Visible = false;
+            // 
+            // OffMinusAverage_Y
+            // 
+            OffMinusAverage_Y.HeaderText = "OffMinusAverage_Y";
+            OffMinusAverage_Y.Name = "OffMinusAverage_Y";
+            OffMinusAverage_Y.Visible = false;
+            // 
+            // OffMinusAverage_Z
+            // 
+            OffMinusAverage_Z.HeaderText = "OffMinusAverage_Z";
+            OffMinusAverage_Z.Name = "OffMinusAverage_Z";
+            OffMinusAverage_Z.Visible = false;
+            // 
             // LoadFile_btn
             // 
             LoadFile_btn.Enabled = false;
@@ -139,12 +171,13 @@
             // Calc_btn
             // 
             Calc_btn.Enabled = false;
-            Calc_btn.Location = new Point(234, 11);
+            Calc_btn.Location = new Point(385, 11);
             Calc_btn.Name = "Calc_btn";
             Calc_btn.Size = new Size(96, 39);
             Calc_btn.TabIndex = 1;
             Calc_btn.Text = "Calculate";
             Calc_btn.UseVisualStyleBackColor = true;
+            Calc_btn.Click += Calc_btn_Click;
             // 
             // Export_btn
             // 
@@ -154,20 +187,22 @@
             Export_btn.TabIndex = 2;
             Export_btn.Text = "Export Pdf";
             Export_btn.UseVisualStyleBackColor = true;
+            Export_btn.Click += Export_btn_Click;
             // 
-            // textBox1
+            // resultTxtBox
             // 
-            textBox1.Location = new Point(571, 12);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(108, 39);
-            textBox1.TabIndex = 3;
+            resultTxtBox.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            resultTxtBox.Location = new Point(571, 12);
+            resultTxtBox.Multiline = true;
+            resultTxtBox.Name = "resultTxtBox";
+            resultTxtBox.Size = new Size(108, 39);
+            resultTxtBox.TabIndex = 3;
             // 
             // Result_lbl
             // 
             Result_lbl.AutoSize = true;
             Result_lbl.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Result_lbl.Location = new Point(487, 19);
+            Result_lbl.Location = new Point(487, 18);
             Result_lbl.Name = "Result_lbl";
             Result_lbl.Size = new Size(78, 32);
             Result_lbl.TabIndex = 4;
@@ -190,7 +225,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(shapefile_btn);
             Controls.Add(Result_lbl);
-            Controls.Add(textBox1);
+            Controls.Add(resultTxtBox);
             Controls.Add(Export_btn);
             Controls.Add(Calc_btn);
             Controls.Add(LoadFile_btn);
@@ -209,10 +244,12 @@
         private Button LoadFile_btn;
         private Button Calc_btn;
         private Button Export_btn;
-        private TextBox textBox1;
+        private TextBox resultTxtBox;
         private Label Result_lbl;
         private DataGridView points_dataGridView;
+        private Button shapefile_btn;
         private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn Delete;
         private DataGridViewTextBoxColumn OriginalX;
         private DataGridViewTextBoxColumn OriginalY;
         private DataGridViewTextBoxColumn OriginalZ;
@@ -222,6 +259,8 @@
         private DataGridViewTextBoxColumn OffsetX;
         private DataGridViewTextBoxColumn OffsetY;
         private DataGridViewTextBoxColumn OffsetZ;
-        private Button shapefile_btn;
+        private DataGridViewTextBoxColumn OffMinusAverage_X;
+        private DataGridViewTextBoxColumn OffMinusAverage_Y;
+        private DataGridViewTextBoxColumn OffMinusAverage_Z;
     }
 }

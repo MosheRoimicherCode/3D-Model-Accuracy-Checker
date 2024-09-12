@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManagement", "FilesMan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShapeFile_management2", "ShapeFile_management\ShapeFile_management2.csproj", "{548663CC-B642-471F-88AB-5BB00395C86E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExportAcuracyToPdf", "ExportAcuracyToPdf\ExportAcuracyToPdf.csproj", "{48B19408-6E3B-431B-B353-6273C7FD4C0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{548663CC-B642-471F-88AB-5BB00395C86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{548663CC-B642-471F-88AB-5BB00395C86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{548663CC-B642-471F-88AB-5BB00395C86E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48B19408-6E3B-431B-B353-6273C7FD4C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B19408-6E3B-431B-B353-6273C7FD4C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B19408-6E3B-431B-B353-6273C7FD4C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48B19408-6E3B-431B-B353-6273C7FD4C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,10 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ExportAcuracyToPdf\**" />
     <Compile Remove="FilesManagement\**" />
     <Compile Remove="ShapeFile_management\**" />
+    <EmbeddedResource Remove="ExportAcuracyToPdf\**" />
     <EmbeddedResource Remove="FilesManagement\**" />
     <EmbeddedResource Remove="ShapeFile_management\**" />
+    <None Remove="ExportAcuracyToPdf\**" />
     <None Remove="FilesManagement\**" />
     <None Remove="ShapeFile_management\**" />
   </ItemGroup>
@@ -31,8 +34,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="ExportAcuracyToPdf\ExportAcuracyToPdf.csproj" />
     <ProjectReference Include="FilesManagement\FilesManagement.csproj" />
     <ProjectReference Include="ShapeFile_management\ShapeFile_management2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\logoKav.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\point.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

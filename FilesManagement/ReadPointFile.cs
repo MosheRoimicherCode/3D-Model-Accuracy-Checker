@@ -13,6 +13,13 @@ public class PointData
     {
         return $"Name: {Name}, X: {X}, Y: {Y}, Z: {Z}";
     }
+    public PointData() { }
+    public PointData(string name, double x, double y, double z) { 
+        Name = name ;
+        X = x ;
+        Y = y ;
+        Z = z ;
+    }
 }
 static public class ReadPointFile
 {
@@ -70,7 +77,7 @@ static public class ReadPointFile
         {
             try
             {
-                var point = new PointData
+                var point = new PointData()
                 {
                     Name = values[0],
                     X = double.Parse(values[1], CultureInfo.InvariantCulture),
