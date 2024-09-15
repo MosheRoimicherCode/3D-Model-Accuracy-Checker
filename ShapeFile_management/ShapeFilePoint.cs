@@ -73,7 +73,7 @@ public class ShapeFilePoint
     }
     public void AddPoint(string name, double x, double y, double z, Dictionary<string, string> data = null)
     {
-        myFeatureSet.FeatureAdded += OnFeatureAdded;
+        //myFeatureSet.FeatureAdded += OnFeatureAdded;
         NetTopologySuite.Geometries.Point point = new NetTopologySuite.Geometries.Point(x,y,z);
 
         // Create new point features and add them to the shapefile
@@ -106,7 +106,7 @@ public class ShapeFilePoint
 
     private void OnFeatureAdded(object? sender, FeatureEventArgs e)
     {
-        pointAdded.Invoke();
+        //pointAdded.Invoke();
     }
 
     public void DeleteFeatureByFID(FeatureSet featureSet, int fid)

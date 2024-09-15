@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using IContainer = QuestPDF.Infrastructure.IContainer;
 using QuestPDF.Previewer;
+using System.Data.Common;
 //using QuestPDF.Companion;
 
 namespace ExportAcuracyToPdf;
@@ -37,12 +38,12 @@ public static class GenerateReport
         //ReportToPdf(points, "דומגמה של שם אתר", "he", "projectName");
     }
 
-    public static void ReportToPdf(List<List<string>> points, List<string> accuracy,  string siteName, string projectName, string pdfPath)
+    public static void ReportToPdf(List<List<string>> points, List<string> accuracy,  string siteName, string pdfPath, string imagePath)
     {
         metaData.CreationDate = DateTimeOffset.Now.Date;
         metaData.Creator = "Automatic Report From Terra Explorer";
         metaData.Producer = "Kav Medida - Israel";
-        metaData.Title = projectName;
+        metaData.Title = siteName;
 
         //DefineCulture(language);
         QuestPDF.Settings.License = LicenseType.Community;
@@ -59,7 +60,7 @@ public static class GenerateReport
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(12));
 
-                page.Header()
+                page.Header().ShowOnce()
                     .Column(column =>
                     {
                         if (File.Exists(logoPath))
@@ -71,7 +72,7 @@ public static class GenerateReport
                         column.Spacing(10);
                         column.Item().Background("#00FF00");
 
-                        column.Item().Text(projectName + " - " + siteName).AlignCenter().FontSize(8);
+                        column.Item().Text(siteName).AlignCenter().FontSize(16); 
                         column.Item().Text("Generated at" + " " + DateTime.Now.ToShortDateString()).AlignCenter().FontSize(8);
 
                         column.Item().Height(1).Background(Colors.Black);
@@ -153,8 +154,8 @@ public static class GenerateReport
                             }
                         });
 
-                        // Spacing between the two tables
-                        col.Item().PaddingVertical(1, Unit.Centimetre);
+                        //// Spacing between the two tables
+                        //col.Item().PaddingVertical(1, Unit.Centimetre);
 
                         // Table 2: Accuracy Deviation
                         col.Item().Border(1).Table(table =>
@@ -162,12 +163,17 @@ public static class GenerateReport
                             table.ColumnsDefinition(columns =>
                             {
                                 columns.RelativeColumn(); // "Accuracy Scale"
+                                
+
                             });
 
                             table.Cell().Element(TableHeader).Text("Accuracy Scale").FontSize(20);
-                            table.Cell().Element(Block).Text(accuracy[3]).FontSize(20); // Display data in each cell
-                            
+                            table.Cell().Background("ffd764").Element(Block).Text(accuracy[3]).FontSize(20); // Display data in each cell
+
                         });
+                        col.Item().PageBreak();
+                        col.Item().AlignCenter().Width(600).Image(imagePath);
+                        //col.Item().Image(imagePath);
                     });
 
 

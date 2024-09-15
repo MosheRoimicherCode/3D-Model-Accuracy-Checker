@@ -231,7 +231,7 @@
             Controls.Add(LoadFile_btn);
             Controls.Add(Table_pabel);
             Name = "Main";
-            Text = "Main";
+            Text = "Accuracy check - Kav Medida";
             Table_pabel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)points_dataGridView).EndInit();
             ResumeLayout(false);

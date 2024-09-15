@@ -111,7 +111,7 @@ public partial class Main : Form
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"An error occurred while wrinting to cell: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"An error occurred while writing to cell: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
     private static string GetShapefilePath()
@@ -205,12 +205,12 @@ public partial class Main : Form
                 }
                 else
                 {
-                    throw new Exception("Cannot Handeld the event |||| ColumnIndex != 0");
+                    //throw new Exception("Cannot Handeld the event |||| ColumnIndex != 0");
                 }
             }
             else
             {
-                throw new Exception("Cannot Handeld the event");
+                //throw new Exception("Cannot Handeld the event");
             }
         }
         catch (Exception ex)
@@ -233,7 +233,7 @@ public partial class Main : Form
 
             // Initialize the shapefile
             shapefile = new ShapeFilePoint(path);
-            shapefile.pointAdded += RefreshTerraLayer;
+            //shapefile.pointAdded += RefreshTerraLayer;
             terraExplorerManagement = new(path);
             terraExplorerManagement.userClickedToCreatePoint += userClickedToCreatePoint;
             terraExplorerManagement.currentPointNameClicked = currentPointNameFromGridVew;
@@ -298,7 +298,7 @@ public partial class Main : Form
             shapefile.AddPoint(name, x, y, z, map);
             // Save changes to the shapefile
             shapefile.myFeatureSet.Save();
-            terraExplorerManagement.RefresLayer();
+            RefreshTerraLayer();
         }
         catch (Exception ex)
         {
@@ -445,6 +445,12 @@ public partial class Main : Form
 
             double x, y, z;
             DataGridView datagrid = points_dataGridView;
+
+            if (datagrid.Rows.Count <= 3)
+            {
+                throw new Exception("Insufficient control points. The minimum required is 3. \n  *** You can try to seach for old maps. ***");
+            }
+
             foreach (DataGridViewRow row in datagrid.Rows)
             {
                 // Skip the empty/new row
@@ -503,7 +509,6 @@ public partial class Main : Form
             MessageBox.Show($"An error occurred while calculation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
     void calculateTest()
     {
         List<double> offetsX = new List<double>(){
@@ -578,7 +583,6 @@ public partial class Main : Form
 
         VerifyAccuracy();
     }
-
     private void VerifyAccuracy()
     {
         var accuracyLevels = new (double X, double Y, double Z, string Scale)[]
@@ -604,23 +608,21 @@ public partial class Main : Form
             }
         }
 
-        resultTxtBox.Text = "ERROR - Accuracy > 50000";
+        resultTxtBox.Text = "Accuracy out of range. The minimum acceptable accuracy is 1:50,000.";
     }
-
-
     private void Export_btn_Click(object sender, EventArgs e)
     {
         try
         {
             var list = new List<string>() { Xaccuracy.ToString(), Yaccuracy.ToString(), Zaccuracy.ToString(), resultTxtBox.Text };
-            GenerateReport.ReportToPdf(GetDataGridViewData(points_dataGridView), list, "בדיקת דיוקים", "בדיקה", "");
+            var imagePath = terraExplorerManagement.GetSanpShot();
+            GenerateReport.ReportToPdf(GetDataGridViewData(points_dataGridView), list, terraExplorerManagement.GetNamesOfModels(), "", imagePath);
         }
         catch (Exception ex)
         {
             MessageBox.Show($"An error occurred while generating the report: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
     private List<List<string>> GetDataGridViewData(DataGridView dataGridView)
     {
         var result = new List<List<string>>();
