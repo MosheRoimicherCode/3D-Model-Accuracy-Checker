@@ -30,6 +30,12 @@
         {
             Table_pabel = new Panel();
             points_dataGridView = new DataGridView();
+            LoadFile_btn = new Button();
+            Calc_btn = new Button();
+            Export_btn = new Button();
+            resultTxtBox = new TextBox();
+            Result_lbl = new Label();
+            shapefile_btn = new Button();
             ID = new DataGridViewTextBoxColumn();
             Delete = new DataGridViewTextBoxColumn();
             OriginalX = new DataGridViewTextBoxColumn();
@@ -44,12 +50,6 @@
             OffMinusAverage_X = new DataGridViewTextBoxColumn();
             OffMinusAverage_Y = new DataGridViewTextBoxColumn();
             OffMinusAverage_Z = new DataGridViewTextBoxColumn();
-            LoadFile_btn = new Button();
-            Calc_btn = new Button();
-            Export_btn = new Button();
-            resultTxtBox = new TextBox();
-            Result_lbl = new Label();
-            shapefile_btn = new Button();
             Table_pabel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)points_dataGridView).BeginInit();
             SuspendLayout();
@@ -71,91 +71,6 @@
             points_dataGridView.Size = new Size(779, 384);
             points_dataGridView.TabIndex = 0;
             points_dataGridView.CellClick += points_dataGridView_CellClick;
-            // 
-            // ID
-            // 
-            ID.HeaderText = "ID";
-            ID.Name = "ID";
-            // 
-            // Delete
-            // 
-            Delete.HeaderText = "Delete Point";
-            Delete.Name = "Delete";
-            // 
-            // OriginalX
-            // 
-            OriginalX.HeaderText = "OriginalX";
-            OriginalX.Name = "OriginalX";
-            OriginalX.ReadOnly = true;
-            OriginalX.Visible = false;
-            // 
-            // OriginalY
-            // 
-            OriginalY.HeaderText = "OriginalY";
-            OriginalY.Name = "OriginalY";
-            OriginalY.ReadOnly = true;
-            OriginalY.Visible = false;
-            // 
-            // OriginalZ
-            // 
-            OriginalZ.HeaderText = "OriginalZ";
-            OriginalZ.Name = "OriginalZ";
-            OriginalZ.ReadOnly = true;
-            OriginalZ.Visible = false;
-            // 
-            // MeasureX
-            // 
-            MeasureX.HeaderText = "MeasureX";
-            MeasureX.Name = "MeasureX";
-            MeasureX.ReadOnly = true;
-            MeasureX.Visible = false;
-            // 
-            // MeasureY
-            // 
-            MeasureY.HeaderText = "MeasureY";
-            MeasureY.Name = "MeasureY";
-            MeasureY.ReadOnly = true;
-            MeasureY.Visible = false;
-            // 
-            // MeasureZ
-            // 
-            MeasureZ.HeaderText = "MeasureZ";
-            MeasureZ.Name = "MeasureZ";
-            MeasureZ.ReadOnly = true;
-            MeasureZ.Visible = false;
-            // 
-            // OffsetX
-            // 
-            OffsetX.HeaderText = "OffsetX";
-            OffsetX.Name = "OffsetX";
-            // 
-            // OffsetY
-            // 
-            OffsetY.HeaderText = "OffsetY";
-            OffsetY.Name = "OffsetY";
-            // 
-            // OffsetZ
-            // 
-            OffsetZ.HeaderText = "OffsetZ";
-            OffsetZ.Name = "OffsetZ";
-            // 
-            // OffMinusAverage_X
-            // 
-            OffMinusAverage_X.HeaderText = "OffMinusAverage_X";
-            OffMinusAverage_X.Name = "OffMinusAverage_X";
-            OffMinusAverage_X.Visible = false;
-            // 
-            // OffMinusAverage_Y
-            // 
-            OffMinusAverage_Y.HeaderText = "OffMinusAverage_Y";
-            OffMinusAverage_Y.Name = "OffMinusAverage_Y";
-            OffMinusAverage_Y.Visible = false;
-            // 
-            // OffMinusAverage_Z
-            // 
-            OffMinusAverage_Z.HeaderText = "OffMinusAverage_Z";
-            OffMinusAverage_Z.Name = "OffMinusAverage_Z";
-            OffMinusAverage_Z.Visible = false;
             // 
             // LoadFile_btn
             // 
@@ -217,6 +132,82 @@
             shapefile_btn.Text = "Create ShapeFile";
             shapefile_btn.UseVisualStyleBackColor = true;
             shapefile_btn.Click += shapefile_btn_Click;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.Name = "ID";
+            // 
+            // Delete
+            // 
+            Delete.HeaderText = "Delete Point";
+            Delete.Name = "Delete";
+            // 
+            // OriginalX
+            // 
+            OriginalX.HeaderText = "OriginalX";
+            OriginalX.Name = "OriginalX";
+            OriginalX.ReadOnly = true;
+            // 
+            // OriginalY
+            // 
+            OriginalY.HeaderText = "OriginalY";
+            OriginalY.Name = "OriginalY";
+            OriginalY.ReadOnly = true;
+            // 
+            // OriginalZ
+            // 
+            OriginalZ.HeaderText = "OriginalZ";
+            OriginalZ.Name = "OriginalZ";
+            OriginalZ.ReadOnly = true;
+            // 
+            // MeasureX
+            // 
+            MeasureX.HeaderText = "MeasureX";
+            MeasureX.Name = "MeasureX";
+            MeasureX.ReadOnly = true;
+            // 
+            // MeasureY
+            // 
+            MeasureY.HeaderText = "MeasureY";
+            MeasureY.Name = "MeasureY";
+            MeasureY.ReadOnly = true;
+            // 
+            // MeasureZ
+            // 
+            MeasureZ.HeaderText = "MeasureZ";
+            MeasureZ.Name = "MeasureZ";
+            MeasureZ.ReadOnly = true;
+            // 
+            // OffsetX
+            // 
+            OffsetX.HeaderText = "OffsetX";
+            OffsetX.Name = "OffsetX";
+            // 
+            // OffsetY
+            // 
+            OffsetY.HeaderText = "OffsetY";
+            OffsetY.Name = "OffsetY";
+            // 
+            // OffsetZ
+            // 
+            OffsetZ.HeaderText = "OffsetZ";
+            OffsetZ.Name = "OffsetZ";
+            // 
+            // OffMinusAverage_X
+            // 
+            OffMinusAverage_X.HeaderText = "OffMinusAverage_X";
+            OffMinusAverage_X.Name = "OffMinusAverage_X";
+            // 
+            // OffMinusAverage_Y
+            // 
+            OffMinusAverage_Y.HeaderText = "OffMinusAverage_Y";
+            OffMinusAverage_Y.Name = "OffMinusAverage_Y";
+            // 
+            // OffMinusAverage_Z
+            // 
+            OffMinusAverage_Z.HeaderText = "OffMinusAverage_Z";
+            OffMinusAverage_Z.Name = "OffMinusAverage_Z";
             // 
             // Main
             // 

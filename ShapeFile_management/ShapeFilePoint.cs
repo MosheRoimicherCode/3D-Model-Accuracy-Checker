@@ -73,7 +73,6 @@ public class ShapeFilePoint
     }
     public void AddPoint(string name, double x, double y, double z, Dictionary<string, string> data = null)
     {
-        //myFeatureSet.FeatureAdded += OnFeatureAdded;
         NetTopologySuite.Geometries.Point point = new NetTopologySuite.Geometries.Point(x,y,z);
 
         // Create new point features and add them to the shapefile
@@ -81,6 +80,7 @@ public class ShapeFilePoint
         if (featureToDelete != null)
         {
             myFeatureSet.Features.Remove(featureToDelete);
+
             //DeleteFeatureByFID(myFeatureSet, featureToDelete.Fid);
             //UpdateFeatureGeometry(myFeatureSet, featureToDelete.Fid, point);
         }
@@ -97,16 +97,17 @@ public class ShapeFilePoint
         data["X_measure"] = y.ToString();
         data["X_measure"] = z.ToString();
 
+        myFeatureSet.FeatureAdded += OnFeatureAdded;
         myFeatureSet.Save(); // Save changes to the shapefile
-        
-
         AddAtributtesValue(feature.Fid, data);
 
     }
 
     private void OnFeatureAdded(object? sender, FeatureEventArgs e)
     {
-        //pointAdded.Invoke();
+        pointAdded.Invoke();
+        // Close the shapefile
+        
     }
 
     public void DeleteFeatureByFID(FeatureSet featureSet, int fid)
@@ -203,8 +204,9 @@ public class ShapeFilePoint
             }
 
             // Save changes to the shapefile
-            myFeatureSet.Save();
+        myFeatureSet.Save();
         
+
     }
     public NetTopologySuite.Geometries.Coordinate GetCoordinateFromPointFeature(int ObjectId)
     {

@@ -147,7 +147,8 @@ public partial class Main : Form
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.Filter = "CSV files (*.csv)|*.csv|PNT files (*.pnt)|*.pnt|Text files (*.txt)|*.txt|All files (*.*)|*.*";  // Filter for CSV, PNT, and TXT files
+            openFileDialog.Filter = "CSV, PNT, and TXT files (*.csv, *.pnt, *.txt)|*.csv;*.pnt;*.txt|All files (*.*)|*.*";
+
             openFileDialog.FilterIndex = 1;  // Index of the filter that is selected by default
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -233,7 +234,7 @@ public partial class Main : Form
 
             // Initialize the shapefile
             shapefile = new ShapeFilePoint(path);
-            //shapefile.pointAdded += RefreshTerraLayer;
+            shapefile.pointAdded += RefreshTerraLayer;
             terraExplorerManagement = new(path);
             terraExplorerManagement.userClickedToCreatePoint += userClickedToCreatePoint;
             terraExplorerManagement.currentPointNameClicked = currentPointNameFromGridVew;
@@ -248,14 +249,19 @@ public partial class Main : Form
             MessageBox.Show($"An error occurred while creating the shapefile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    double xOff, yOff, zOff;
+    List<double> offsets;
+    List<string> columnnames;
+    Dictionary<string, string> map;
     private void userClickedToCreatePoint(string? name, double x, double y, double z)
     {
         try
         {
             terraExplorerManagement.currentPointNameClicked = name;
-            Dictionary<string, string> map = new Dictionary<string, string>();
+            map = new Dictionary<string, string>();
 
-            List<string> columnnames = new List<string>() { "MeasureX", "MeasureY", "MeasureZ" };
+            columnnames = new List<string>() { "MeasureX", "MeasureY", "MeasureZ" };
             var poin = new PointData(name, x, y, z);
             insertDataToCells_gridView(poin, columnnames);
 
@@ -265,7 +271,7 @@ public partial class Main : Form
             map["Z_measure"] = z.ToString();
 
             columnnames = new List<string>() { "OriginalX", "OriginalY", "OriginalZ" };
-            double xOff, yOff, zOff;
+
 
             var offsetList = GetDataFromCells_gridView(name, columnnames, points_dataGridView);
             if (!double.TryParse(offsetList[0], out xOff))
@@ -280,12 +286,12 @@ public partial class Main : Form
             map["Z_original"] = zOff.ToString();
 
 
-            List<double> offsets = new()
-        {
-            Math.Abs(xOff - x),
-            Math.Abs(yOff - y),
-            Math.Abs(zOff - z)
-        };
+            offsets = new()
+            {
+               (xOff - x),
+               (yOff - y),
+               (zOff - z)
+            };
 
             columnnames = new List<string>() { "OffsetX", "OffsetY", "OffsetZ" };
             poin = new PointData(name, offsets[0], offsets[1], offsets[2]);
@@ -486,11 +492,11 @@ public partial class Main : Form
                 }
 
                 double.TryParse((row.Cells["OffsetX"].Value.ToString()), out x);
-                offetsX.Add((x - averegeX) * (x - averegeX));
+                offetsX.Add(Math.Abs(x - averegeX) * Math.Abs(x - averegeX));
                 double.TryParse((row.Cells["OffsetY"].Value.ToString()), out y);
-                offetsY.Add((y - averegeY) * (y - averegeY));
+                offetsY.Add(Math.Abs(y - averegeY) * Math.Abs(y - averegeY));
                 double.TryParse((row.Cells["OffsetZ"].Value.ToString()), out z);
-                offetsZ.Add((z - averegeZ) * (z - averegeZ));
+                offetsZ.Add(Math.Abs(z - averegeZ) * Math.Abs(z - averegeZ));
 
                 var poin = new PointData(row.Cells["ID"].Value?.ToString(), (x - averegeX), (y - averegeY), (z - averegeZ));
                 insertDataToCells_gridView(poin, columnnames);
